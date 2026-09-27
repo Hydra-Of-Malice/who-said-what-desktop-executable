@@ -40,7 +40,7 @@ Who Said What records a meeting and writes down every sentence with the name of 
 ## 📥 Download
 
 1. Open the [latest release](https://github.com/Hydra-Of-Malice/who-said-what-desktop-executable/releases/latest).
-2. Download **all four installer files** into one folder: the `.exe` and the three `.bin` parts (about 5.6 GB in total).
+2. Download **all four installer files** into one folder: the `.exe` and the three `.bin` parts (about 5 GB in total).
 3. Run `WhoSaidWhat-Setup-<version>.exe`. No administrator password is needed.
 4. Windows SmartScreen will say "Windows protected your PC", because this build is not code-signed. Click **More info**, then **Run anyway**.
 5. Leave "Start Who Said What now" ticked. The first start takes one to two minutes; later starts take about ten seconds.
@@ -55,9 +55,9 @@ certutil -hashfile WhoSaidWhat-Setup-0.1.1-1.bin SHA256
 |---|---|
 | Windows | Windows 10 (version 1809 or newer) or Windows 11, 64-bit |
 | Graphics card | NVIDIA with 6 GB of video memory or more. 8 GB recommended. |
-| Driver | NVIDIA driver 525 or newer. RTX 50-series: 580 or newer. [Get drivers](https://www.nvidia.com/drivers) |
+| Driver | NVIDIA driver 580 or newer. Older drivers (525 to 579) and GTX 10-series or older cards also work: the app downloads a matching 2 GB component on the first start. [Get drivers](https://www.nvidia.com/drivers) |
 | Disk | About 9 GB for the app, plus your recordings |
-| Internet | Not needed to install or use. RTX 50-series cards download one 2 GB component on the first start. |
+| Internet | Not needed to install or use, with a current driver. See the driver row for the one exception. |
 | Microphone | Any. A headset or a table microphone gives better names than a laptop microphone far away. |
 | Not supported | AMD and Intel graphics, computers without a graphics card, macOS, Linux |
 
@@ -97,7 +97,7 @@ Recording people without their knowledge is illegal in many places. Tell everyon
 ## ⚠️ Known limits
 
 - This is a test build. It was developed and tested on one laptop with an RTX 4060 (8 GB). Other graphics cards should work but are not yet confirmed.
-- RTX 50-series cards failed on the first start in version 0.1.0. Version 0.1.1 fixes the cause we found; it has not yet been confirmed on a real RTX 50 card.
+- RTX 50-series cards failed on the first start in version 0.1.0. Since 0.1.1 the installer carries the component these cards need, so nothing is swapped on the first start. This was tested on an RTX 4060 with the same component, not yet on a real RTX 50 card.
 - There is no CPU-only mode. Without an NVIDIA graphics card the app installs but cannot transcribe.
 - The installer is not code-signed, so Windows shows a warning.
 - Names depend on the enrollment sample. A noisy sample or a different microphone lowers the accuracy.
