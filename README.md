@@ -1,38 +1,129 @@
-# Who Said What — installer downloads
+<div align="center">
 
-Windows desktop app that transcribes meetings on your own PC and says who said what. Everything runs locally;
-nothing is uploaded.
+# 🎙️ Who Said What
 
-## Download
+### Meeting transcripts that know who spoke.
 
-Go to **Releases** (right-hand side of this page) and download **all files** of the latest release into one folder:
+**Names on every line · Handles people talking at once · Runs 100% on your PC**
 
-- `WhoSaidWhat-Setup-<version>.exe`
-- `WhoSaidWhat-Setup-<version>-1.bin`, `-2.bin`, `-3.bin` (the installer data, about 5.6 GB in total)
+[![Download](https://img.shields.io/badge/download-v0.1.1-2f6fde?style=for-the-badge)](https://github.com/Hydra-Of-Malice/who-said-what-desktop-executable/releases/latest)
+![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-555?style=for-the-badge)
+![GPU](https://img.shields.io/badge/requires-NVIDIA%20GPU%206%20GB-76b900?style=for-the-badge)
+![Offline](https://img.shields.io/badge/works-offline-9a6700?style=for-the-badge)
 
-Then run the `.exe`. Windows SmartScreen will say "Windows protected your PC" because this test build is not
-code-signed: click **More info**, then **Run anyway**. Installation takes about two minutes and needs no internet.
+<img src="docs/screenshot-transcript.png" width="720" alt="A meeting transcript with a name on every line, overlap markers and talk time per person">
 
-## What your PC needs
+</div>
 
-- Windows 10 (1809 or newer) or Windows 11, 64-bit
-- An NVIDIA GPU with at least 6 GB of VRAM (GTX 10-series or newer; RTX 30/40/50 are fastest).
-  Without an NVIDIA GPU the app installs but cannot transcribe.
-- NVIDIA driver 525 or newer (RTX 50-series: 580 or newer): https://www.nvidia.com/drivers
-- About 9 GB of free disk space, plus room for recordings
-- A microphone. To transcribe online calls (Teams, Zoom, Meet, ...) turn on "system audio" in the app's settings.
+Who Said What records a meeting and writes down every sentence with the name of the person who said it, live, while the meeting is running. Use it for team stand-ups, client calls on Teams, Zoom or Meet, interviews, and lectures. Nothing is uploaded: the audio, the transcript and the voices stay on your computer.
 
-## First start
+## 💡 Why you'll like it
 
-The first start takes one to two minutes; later starts take about ten seconds. RTX 50-series GPUs see a
-"Setting up Who Said What" screen once, which downloads about 2 GB (the only case that needs internet).
+| | |
+|---|---|
+| 🏷️ **Real names** | Each person reads a short passage once. After that the transcript says "Priya", not "Speaker 2". |
+| 🗣️ **Overlap aware** | When two or more people talk at the same time, each sentence still lands on the right person. |
+| 🔒 **Private by design** | No account, no cloud, no upload. It works with the network cable unplugged. |
+| ⚡ **Live** | Lines appear about a second after they are spoken. A final pass tidies the timing when you stop. |
+| 🌍 **40 languages** | Switch to the multilingual engine for Hindi, Spanish, French, German, Japanese and more. |
+| 💻 **Online calls too** | Turn on system audio to capture the people on the other end of a call. |
+| 📤 **Yours to keep** | Search a meeting, rename a speaker, export to Markdown, SRT subtitles or JSON. |
 
-## Reporting a problem
+## 🚀 Three steps
 
-Send `launcher.log` and `app.log` from `%LOCALAPPDATA%\WhoSaidWhat` (paste that path into the Explorer address bar)
-together with what you did. A screenshot of the "Setting up Who Said What" screen, if it appears, helps too.
+<img src="docs/screenshot-meetings.png" width="720" alt="The Meetings page: pick who is in the room and start recording">
 
-## Uninstall
+1. **Enroll your voices.** Each person reads a short passage for about 30 seconds, once.
+2. **Start the meeting.** Pick who is in the room and press Start recording.
+3. **Read and export.** Open the transcript, search it, fix a name if needed, and export it.
 
-Settings > Apps > Installed apps > Who Said What > Uninstall. Meetings, recordings and enrolled voices stay in
-`%LOCALAPPDATA%\WhoSaidWhat`; delete that folder to remove them as well.
+## 📥 Download
+
+1. Open the [latest release](https://github.com/Hydra-Of-Malice/who-said-what-desktop-executable/releases/latest).
+2. Download **all four installer files** into one folder: the `.exe` and the three `.bin` parts (about 5.6 GB in total).
+3. Run `WhoSaidWhat-Setup-<version>.exe`. No administrator password is needed.
+4. Windows SmartScreen will say "Windows protected your PC", because this build is not code-signed. Click **More info**, then **Run anyway**.
+5. Leave "Start Who Said What now" ticked. The first start takes one to two minutes; later starts take about ten seconds.
+
+Installation takes about two minutes. If a download looks damaged, compare it with `SHA256SUMS.txt` from the release:
+
+```powershell
+certutil -hashfile WhoSaidWhat-Setup-0.1.1-1.bin SHA256
+```
+
+| Requirement | Details |
+|---|---|
+| Windows | Windows 10 (version 1809 or newer) or Windows 11, 64-bit |
+| Graphics card | NVIDIA with 6 GB of video memory or more. 8 GB recommended. |
+| Driver | NVIDIA driver 525 or newer. RTX 50-series: 580 or newer. [Get drivers](https://www.nvidia.com/drivers) |
+| Disk | About 9 GB for the app, plus your recordings |
+| Internet | Not needed to install or use. RTX 50-series cards download one 2 GB component on the first start. |
+| Microphone | Any. A headset or a table microphone gives better names than a laptop microphone far away. |
+| Not supported | AMD and Intel graphics, computers without a graphics card, macOS, Linux |
+
+## 🔍 What it does
+
+| Stage | What happens |
+|---|---|
+| Enroll | A 30 second voice sample becomes a voice fingerprint. The app checks the sample for noise, clipping and length. |
+| Record | The microphone, and optionally the sound your speakers play, is captured. |
+| Separate | The app works out who is speaking at every moment, for up to 8 people. |
+| Transcribe | Each person's speech is turned into text, also while others are talking. |
+| Name | Voices are matched to the enrolled fingerprints. Unknown voices become "Speaker N", or the name they introduce themselves with. |
+| Final pass | When you stop, timing and overlap markers are refined. |
+| Review | Search, rename speakers, see talk time per person, pull out key moments. |
+| Export | Markdown, SRT subtitles or JSON. |
+
+## ⚙️ How it works
+
+```text
+ microphone ──┐
+              ├──► who speaks when ──► speech to text ──► names ──► transcript
+ system audio ┘         (GPU)              (GPU)        (voice         │
+                                                      fingerprints)    ▼
+                                                              search · export
+```
+
+| Component | Purpose | License |
+|---|---|---|
+| Who Said What app | Recording, transcript, search, export, interface | All rights reserved |
+| Speech engines | Speaker separation, speech to text, voice fingerprints. They run on your graphics card. | Third-party, bundled under their own open licenses |
+| Microsoft Edge WebView2 | Shows the app window. Part of Windows 11. | Microsoft |
+
+## 🛡️ Responsible use
+
+Recording people without their knowledge is illegal in many places. Tell everyone in the meeting that it is being recorded and transcribed, and get consent where the law asks for it. A voice fingerprint is personal data: enroll only people who agreed to it, and delete a voice in the Speakers page when someone asks.
+
+## ⚠️ Known limits
+
+- This is a test build. It was developed and tested on one laptop with an RTX 4060 (8 GB). Other graphics cards should work but are not yet confirmed.
+- RTX 50-series cards failed on the first start in version 0.1.0. Version 0.1.1 fixes the cause we found; it has not yet been confirmed on a real RTX 50 card.
+- There is no CPU-only mode. Without an NVIDIA graphics card the app installs but cannot transcribe.
+- The installer is not code-signed, so Windows shows a warning.
+- Names depend on the enrollment sample. A noisy sample or a different microphone lowers the accuracy.
+- With system audio on and loudspeakers in use, the microphone is turned down while the speakers play. Headphones give better results.
+- The English engine is the most accurate with overlapping speech. The multilingual engine covers 40 languages, and accuracy differs per language.
+- Very short remarks ("yes", "okay") are sometimes given to the wrong person.
+- The optional meeting assistant is not part of the installer.
+
+## 🛠️ Development
+
+This repository holds the installer downloads only. The app's source code is not public.
+
+To check a download against the published checksums:
+
+```powershell
+Get-FileHash .\WhoSaidWhat-Setup-0.1.1.exe -Algorithm SHA256
+```
+
+| Folder / file | Contents |
+|---|---|
+| `README.md` | This page |
+| `docs/` | Screenshots used on this page |
+| [Releases](https://github.com/Hydra-Of-Malice/who-said-what-desktop-executable/releases) | The installer files and checksums |
+
+Found a problem? Open an [issue](https://github.com/Hydra-Of-Malice/who-said-what-desktop-executable/issues) and attach `launcher.log` and `app.log` from `%LOCALAPPDATA%\WhoSaidWhat`.
+
+## 📄 License
+
+All rights reserved. The test build is free to install and use for evaluation. The bundled third-party components keep their own licenses.
